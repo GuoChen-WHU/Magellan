@@ -1,0 +1,24 @@
+{
+  "name": "Magellan",
+  "version": "0.1.0",
+  "description": "A tiny map editor.",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "dn test && dn build -e prod"
+  },
+  "author": {
+    "name": "Guo Chen",
+    "email": "guochen0908@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "antd": "^2.13.6",
+    "mobx": "^3.3.1",
+    "mobx-react": "^4.3.3",
+    "mobx-state-tree": "^1.0.1",
+    "ol": "^4.4.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
