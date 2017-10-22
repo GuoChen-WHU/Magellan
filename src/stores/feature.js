@@ -1,30 +1,55 @@
 import { types } from 'mobx-state-tree';
 
 const Attribute = types.model({
-  key: '属性名',
-  value: '属性值'
+  key: 'key',
+  value: 'value'
 });
 
-const FeatureStore = types.model(
-  'FeatureStore',
-  {
+const FeatureStore = types
+  .model('FeatureStore', {
     type: types.string,
-    attributes: types.array(Attribute),
-  },
-  {
-    addAttribute({ key, value }) {
-      this.attributes.push({
-        key, 
-        value,
-      });
-    },
-    removeAttribute(key) {
-      this.attributes.remove(this.attributes.find(attr => attr.key = key));
-    },
-    editAttribute({ key, value }) {
-      this.attributes.find(attr => attr.key = key).value = value;
+    attributes: types.array(Attribute)
+  })
+  .actions(self => {
+    function changeType(type) {
+      self.type = type;
     }
-  }
-);
+
+    function addAttribute({ key, value }) {
+      self.attributes.push({
+        key, 
+        value
+      });
+    }
+
+    function removeAttribute(key) {
+      self.attributes
+        .remove(self.attributes
+          .find(attr => { 
+            attr.key = key; 
+          })
+        );
+    }
+
+    function clearAttributes() {
+      self.attributes = [];
+    }
+    
+    function editAttribute({ key, value }) {
+      self.attributes
+        .find(attr => { 
+          attr.key = key; 
+        })
+        .value = value;
+    }
+
+    return {
+      changeType,
+      addAttribute,
+      removeAttribute,
+      clearAttributes,
+      editAttribute
+    };
+  });
 
 export default FeatureStore;
