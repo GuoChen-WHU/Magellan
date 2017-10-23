@@ -7,4 +7,4 @@ export const getDistance = (coor1, coor2) => {
 export const getFeatureByUid = (source, id) => {
   if (!source || !id) return;
   return source.getFeatures().find(feature => feature.ol_uid === id);
-}
+};

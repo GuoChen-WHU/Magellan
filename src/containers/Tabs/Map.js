@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input } from 'antd';
 import { inject, observer } from 'mobx-react';
 const { Item } = Form;
-import { formItemLayout } from './shared';
+import { formItemLayout } from '../../utils/layout';
 
 @inject('map')
 @observer class MapTab extends Component {

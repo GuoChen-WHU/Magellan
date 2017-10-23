@@ -15,7 +15,8 @@ const mapStore = MapStore.create({
 const featureStore = FeatureStore.create({
   uid: -1,
   type: '',
-  attributes: []
+  attributes: [],
+  properties: []
 });
 
 const store = {

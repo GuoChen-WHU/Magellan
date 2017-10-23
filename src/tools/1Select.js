@@ -1,4 +1,5 @@
 import Select from 'ol/interaction/select';
+import omit from 'lodash.omit';
 import { getDistance } from '../utils';
 
 const SelectTool = {
@@ -15,7 +16,9 @@ const SelectTool = {
         if (feature) {
           const type = feature.getGeometryName();
           const uid = feature.ol_uid;
+
           let attributes = [];
+          let properties = [];
           switch (type) {
             case 'Box': {
               const coors = feature.getGeometry().getCoordinates();
@@ -33,13 +36,21 @@ const SelectTool = {
                 key: 'area',
                 value: '' + feature.getGeometry().getArea()
               });
+
+              const objProps = omit(feature.getProperties(), ['Box']);
+              for (let key in objProps) {
+                if (objProps.hasOwnProperty(key)) {
+                  properties.push({ key, value: objProps[key] });
+                }
+              }
               break;
             }
           
             default:
               break;
           }
-          featureStore.selectFeature({ uid, type, attributes });
+
+          featureStore.selectFeature({ uid, type, attributes, properties });
         }
       });
     };
