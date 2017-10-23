@@ -17,6 +17,9 @@ build:
     files:
       (0): ./src/assets/favicon.ico
   - name: webpack
+    externals: 
+      jquery: jQuery
+    env: production
 
 test:
   - name: lint
