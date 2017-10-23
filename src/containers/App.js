@@ -8,6 +8,7 @@ import Map from './Map';
 import Toolbar from './Toolbar';
 import MapTab from './Tabs/Map';
 import FeatureTab from './Tabs/Feature';
+import ExportTab from './Tabs/Export';
 
 class App extends Component {
   render() {
@@ -26,7 +27,7 @@ class App extends Component {
               <FeatureTab />
             </TabPane>
             <TabPane tab="Export" key="export">
-              
+              <ExportTab />
             </TabPane>
           </Tabs>
         </Sider>
