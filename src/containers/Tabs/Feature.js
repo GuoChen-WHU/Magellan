@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { inject, observer } from 'mobx-react';
 const { Item } = Form;
-import { formItemLayout } from './shared';
+import { formItemLayout, tailFormItemLayout } from './shared';
+import { getFeatureByUid } from '../../utils'
 
 @inject('feature')
 @observer class FeatureTab extends Component {
+  handleRemove = e => {
+    const { uid } = this.props.feature;
+    if (uid !== -1) {
+      const feature = getFeatureByUid(window._source, uid);
+      window._source.removeFeature(feature);
+      this.props.feature.deselectFeature();
+      message.success('Feature removed.');
+    }
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const { feature } = this.props;
@@ -32,6 +43,14 @@ import { formItemLayout } from './shared';
           )}
         </Item>
       )}
+      <Item {...tailFormItemLayout}>
+        <Button 
+          style={{ display: feature.uid === -1 ? 'none' : 'inline-block' }}
+          type="danger" 
+          icon="delete"
+          onClick={this.handleRemove}
+        >Delete</Button>
+      </Item>
     </Form>;
   }
 }

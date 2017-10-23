@@ -7,10 +7,23 @@ const Attribute = types.model({
 
 const FeatureStore = types
   .model('FeatureStore', {
+    uid: types.number, // openlayers uid
     type: types.string,
     attributes: types.array(Attribute)
   })
   .actions(self => {
+    function selectFeature({ uid, type, attributes }) {
+      self.uid = uid;
+      self.type = type;
+      self.attributes = attributes;
+    }
+
+    function deselectFeature() {
+      self.uid = -1;
+      self.type = '';
+      self.attributes = [];
+    }
+
     function changeType(type) {
       self.type = type;
     }
@@ -44,6 +57,8 @@ const FeatureStore = types
     }
 
     return {
+      selectFeature,
+      deselectFeature,
       changeType,
       addAttribute,
       removeAttribute,

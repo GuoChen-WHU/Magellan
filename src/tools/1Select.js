@@ -14,22 +14,22 @@ const SelectTool = {
         const feature = e.target.getFeatures().item(0);
         if (feature) {
           const type = feature.getGeometryName();
-          featureStore.changeType(type);
-          featureStore.clearAttributes();
+          const uid = feature.ol_uid;
+          let attributes = [];
           switch (type) {
             case 'Box': {
               const coors = feature.getGeometry().getCoordinates();
               const width = getDistance(coors[0][0], coors[0][1]);
               const height = getDistance(coors[0][1], coors[0][2]);
-              featureStore.addAttribute({
+              attributes.push({
                 key: 'width',
                 value: '' + width
               });
-              featureStore.addAttribute({
+              attributes.push({
                 key: 'height',
                 value: '' + height
               });
-              featureStore.addAttribute({
+              attributes.push({
                 key: 'area',
                 value: '' + feature.getGeometry().getArea()
               });
@@ -39,6 +39,7 @@ const SelectTool = {
             default:
               break;
           }
+          featureStore.selectFeature({ uid, type, attributes });
         }
       });
     };

@@ -13,6 +13,7 @@ const mapStore = MapStore.create({
   center: [12729863.55937561, 3571664.955681873]
 });
 const featureStore = FeatureStore.create({
+  uid: -1,
   type: '',
   attributes: []
 });
