@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Radio, Icon } from 'antd';
-import { inject } from 'mobx-react';
 import './Toolbar.less';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -13,7 +12,6 @@ const tools = toolConfigs
   .map(key => toolConfigs(key))
   .sort((a, b) => a.index > b.index);
 
-@inject('feature')
 class Toolbar extends Component {
   state = {
     currentTool: ''
@@ -21,7 +19,6 @@ class Toolbar extends Component {
 
   onSwitchTool = (e) => {
     const { currentTool } = this.state;
-    const { feature } = this.props;
 
     currentTool && tools.find(tool => tool.name === currentTool).onDeselect(context)();
     tools.find(tool => tool.name === e.target.value)
