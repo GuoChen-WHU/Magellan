@@ -7,6 +7,8 @@ import App from './containers/App';
 import MapStore from './stores/map';
 import FeatureStore from './stores/feature';
 
+import context from './context';
+
 const mapStore = MapStore.create({
   source: 'OSM',
   zoom: 18,
@@ -23,6 +25,9 @@ const store = {
   map: mapStore,
   feature: featureStore
 };
+
+// attach stores to context
+context.store = store;
 
 ReactDOM.render(
   <Provider {...store}>

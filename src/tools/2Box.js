@@ -4,7 +4,7 @@ import Snap from 'ol/interaction/snap';
 const BoxTool = {
   name: 'Box',
   icon: 'tool',
-  onSelect: function(map, source) {
+  onSelect: function({ map, vecSource: source }) {
     return function() {
       this.draw = new Draw({
         source,
@@ -17,7 +17,7 @@ const BoxTool = {
       map.addInteraction(this.snap);
     };
   },
-  onDeselect: function(map) {
+  onDeselect: function({ map }) {
     return function() {
       map.removeInteraction(this.draw);
       map.removeInteraction(this.snap);

@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree';
 import { getFeatureByUid } from '../utils';
+import context from '../context';
 
 const Attribute = types.model({
   key: 'key',
@@ -30,15 +31,15 @@ const FeatureStore = types
 
     function removeFeature() {
       if (self.uid !== -1) {
-        const feature = getFeatureByUid(window._source, self.uid);
-        window._source.removeFeature(feature);
+        const feature = getFeatureByUid(context.vecSource, self.uid);
+        context.vecSource.removeFeature(feature);
         deselectFeature();
       }
     }
 
     function addProperty({ key, value }) {
       if (self.uid !== -1) {
-        const feature = getFeatureByUid(window._source, self.uid);
+        const feature = getFeatureByUid(context.vecSource, self.uid);
         feature.set(key, value);
         self.properties.push({ key, value });
       }
@@ -46,7 +47,7 @@ const FeatureStore = types
 
     function removeProperty(key) {
       if (self.uid !== -1) {
-        const feature = getFeatureByUid(window._source, self.uid);
+        const feature = getFeatureByUid(context.vecSource, self.uid);
         feature.unset(key);
         self.properties.remove(self.properties.find(p => p.key === key));
       }

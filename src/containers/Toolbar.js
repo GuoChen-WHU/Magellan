@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Radio } from 'antd';
 import { inject } from 'mobx-react';
-
+import './Toolbar.less';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-import './Toolbar.less';
+
+import context from '../context';
 
 const tools = require.context('../tools', true, /\.js$/);
 
@@ -18,8 +19,8 @@ class Toolbar extends Component {
     const { currentTool } = this.state;
     const { feature } = this.props;
 
-    currentTool && tools(currentTool).onDeselect(window._map, window._source, feature)();
-    tools(e.target.value).onSelect(window._map, window._source, feature)();
+    currentTool && tools(currentTool).onDeselect(context)();
+    tools(e.target.value).onSelect(context)();
     this.setState({ currentTool: e.target.value });
   }
 

@@ -5,9 +5,9 @@ import { getDistance } from '../utils';
 const SelectTool = {
   name: 'Select',
   icon: 'tool',
-  onSelect: function(map, source, featureStore) {
+  onSelect: function({ map, store: { feature: featureStore } }) {
     return function() {
-      this.select = new Select();
+      if (!this.select) this.select = new Select();
       map.addInteraction(this.select);
 
       // Modify feature store to update ui
@@ -55,7 +55,7 @@ const SelectTool = {
       });
     };
   },
-  onDeselect: function(map) {
+  onDeselect: function({ map }) {
     return function() {
       map.removeInteraction(this.select);
     };

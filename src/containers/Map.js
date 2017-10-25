@@ -12,6 +12,8 @@ import Fill from 'ol/style/fill';
 import Stroke from 'ol/style/stroke';
 import Circle from 'ol/style/circle';
 
+import context from '../context';
+
 import 'ol/ol.css';
 import './Map.less';
 
@@ -20,15 +22,15 @@ class MapComponent extends Component {
   componentDidMount() {
     const { map } = this.props;
 
-    // 初始化map
-    const raster = new TileLayer({
+    // background layer
+    const bgLayer = context.bgLayer = new TileLayer({
       source: new OSM()
     });
 
-    // 矢量图层的source作为全局变量，供工具栏组件使用
-    const source = window._source = new Vector();
-    const vector = new VectorLayer({
-      source: source,
+    // vector layer
+    const vecSource = context.vecSource = new Vector();
+    const vecLayer = context.vecLayer = new VectorLayer({
+      source: vecSource,
       style: new Style({
         fill: new Fill({
           color: 'rgba(255, 255, 255, 0.2)'
@@ -46,14 +48,13 @@ class MapComponent extends Component {
       })
     });
 
-    const view = new View({
+    const view = context.view = new View({
       center: map.center,
       zoom: map.zoom
     });
 
-    // map实例作为全局变量，供工具栏组件使用
-    this.map = window._map = new Map({
-      layers: [raster, vector],
+    this.map = context.map = new Map({
+      layers: [bgLayer, vecLayer],
       target: 'map',
       view
     });
