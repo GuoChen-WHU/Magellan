@@ -2,8 +2,9 @@ import Draw from 'ol/interaction/draw';
 import Snap from 'ol/interaction/snap';
 
 const BoxTool = {
+  index: 1,
   name: 'Box',
-  icon: 'tool',
+  icon: 'plus-square-o',
   onSelect: function({ map, vecSource: source }) {
     return function() {
       this.draw = new Draw({

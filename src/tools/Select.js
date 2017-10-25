@@ -3,8 +3,9 @@ import omit from 'lodash.omit';
 import { getDistance } from '../utils';
 
 const SelectTool = {
+  index: 0,
   name: 'Select',
-  icon: 'tool',
+  icon: 'select',
   onSelect: function({ map, store: { feature: featureStore } }) {
     return function() {
       if (!this.select) this.select = new Select();
@@ -51,6 +52,8 @@ const SelectTool = {
           }
 
           featureStore.selectFeature({ uid, type, attributes, properties });
+        } else {
+          featureStore.deselectFeature();
         }
       });
     };
