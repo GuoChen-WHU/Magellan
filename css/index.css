@@ -19434,6 +19434,7 @@ body,
   position: absolute;
   top: 10px;
   left: 50px;
+  box-shadow: 0 0 15px rgba(186, 204, 207, 0.7);
 }
 
 /*# sourceMappingURL=index.css.map*/
